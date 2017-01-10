@@ -29,48 +29,15 @@
           <h1>New York</h1>
         </center>
         <center>
-          <h4>View by</h4>
+          <h4>Neighborhood News</h4>
         </center>
 
+	{% for x,y in news.items()%}
         <div class="row">
-          <center>
-            <div class="col-md-12">
-              <a href="/" class="btn btn-default">
-                <br> Blank the map
-              </a>
-            </div>
-          </center>
+        	<h5>{{x}}</h5>
+		<p>{{y}}</p>
         </div>
-
-        <br> Population
-        <div class="row">
-
-        <div class="col-md-6">
-          <a href="/state"
-            class="btn btn-default">
-            <br> States Population
-          </a>
-        </div>
-
-      </div>
-
-      <br> Language
-      <div class="row">
-
-        <div class="col-md-6">
-          <a href="/french"
-            class="btn btn-default">
-            <br> French
-          </a>
-        </div>
-
-
-        <div class="col-md-6">
-          <a href="/spanish"
-            class="btn btn-default">
-            <br> Spanish
-          </a>
-        </div>
+	{% endfor %}
 
 
       <!--</div>-->
