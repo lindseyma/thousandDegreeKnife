@@ -1,0 +1,10 @@
+Team tyb
+
+janetZ, reoK, lindseyM, elinaH -- 2017-01-05 23:41 
+Finished design document. Site map and component map completed.
+
+janetZ -- 2017-01-09 12:33
+Finished basic HTML template.
+
+reoK, elinaH -- 2017-01-09 12:33
+Obtained API keys and researched APIs.
