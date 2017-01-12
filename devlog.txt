@@ -12,3 +12,5 @@ Obtained API keys and researched APIs.
 janetZ, reoK, elinaH, lindseyM -- 2017-01-10 12:15
 Basic file structure completed
  
+lindseyM, janetZ, reoK, elinaH -- 2017-01-12 12:33
+Put Google map onto website; continued working on Zillow API data
