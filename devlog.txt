@@ -8,3 +8,7 @@ Finished basic HTML template.
 
 reoK, elinaH -- 2017-01-09 12:33
 Obtained API keys and researched APIs.
+
+janetZ, reoK, elinaH, lindseyM -- 2017-01-10 12:15
+Basic file structure completed
+ 
