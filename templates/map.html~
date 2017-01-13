@@ -17,11 +17,22 @@
         <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
         <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
         <![endif]-->
+<<<<<<< HEAD
         <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyANxJ7nnBsOv8PTwcEQB8cNG_lsLpsII50&callback=myMap"></script>
-  		<script src="neighborhood.js"></script>
+  		<script type="text/javascript" src="neighborhood.js"></script>
 
 </head>
+=======
+>>>>>>> 0a380d0455549de4bb7a8760184a72dec14b01f6
 
+	<script src="https://maps.googleapis.com/maps/api/js?key
+=mapkey&libraries=visualization&callback=initMap"></script>
+</head>
+<!--temporary note: make function w/ for loop to go thru crimes; plot as
+	var heatMapData=[
+		new google.maps.LatLng(lat, long),etc
+	]
+-->
 <body style="margin: 20px 20px 20px 20px;">
 <div class="container">
   <div class="row">
