@@ -3,9 +3,10 @@ data = "((-74.0438776157395 40.69018767637665, -74.0435059601254 40.689687359636
 new = []
 
 for x in data.split(", "):
-    x.split(" ")
-    new.append(x)
+    new.append(x.split(" "))
 
-new[0]=new[0].split("((")
-new[len(new)-1]=new[len(new)-1].split("))")
+print new
+
+new[0][0]=new[0][0][2:]
+new[len(new)-1][1]=new[len(new)-1][1][:-2]
 print new
