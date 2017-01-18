@@ -5,6 +5,7 @@ with open('../data/policeprecincts.json') as data_file:
     data = json.load(data_file)
 
 latlng = data["data"][0][10]
+print data["data"][0][10]
 #pprint(data)
 
 '''
@@ -13,12 +14,13 @@ data = "((-74.0438776157395 40.69018767637665, -74.0435059601254 40.689687359636
 
 new = []
 def makeLatLng(string):
-	for x in string.split(","):
+	string = string[12:]
+	for x in string.split(", "):
 			new.append(x.split(" "))
-	'''		
-	new[0][0]=new[0][0][2:]
-	new[len(new)-1][1]=new[len(new)-1][1][:-2]
-	'''
+	new.pop(0)
+	new[0][0]=new[0][0][1:]
+	new[len(new)-1][1]=new[len(new)-1][1][:-3]
+	
 	
 	print new
 #print data["meta"]["data"]
