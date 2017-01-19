@@ -1,11 +1,11 @@
 from flask import Flask, render_template, request
-from utils import map
+from utils import listparse
 
 app = Flask(__name__)
 
 @app.route("/")
 def root():
-    return render_template("map.html")
+    return render_template("map.html", populateLatLng = listparse.main())
 	
 @app.route("/listing/")
 def listing():
