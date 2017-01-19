@@ -1,6 +1,6 @@
 import urllib, urllib2, json
 
-query = "https://data.cityofnewyork.us/resource/2fra-mtpn.json?$select='OFNS_DESC'"
+query = "https://data.cityofnewyork.us/resource/2fra-mtpn.json?$select=ofns_desc,location_1"
 
 def crimeCall():
 	try:
@@ -20,3 +20,4 @@ def crimeCall():
 	##return parsed_json.keys()
 	
 print crimeCall()
+
