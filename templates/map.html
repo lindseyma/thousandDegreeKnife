@@ -66,13 +66,14 @@
     // Define the LatLng coordinates for the polygon's path.
     var triangleCoords = 
     
-     {{ populateLatLng|safe }};
-      /*
+     //{{ populateLatLng|safe }};
+      [
         {lat: 25.774, lng: -80.190},
         {lat: 18.466, lng: -66.118},
         {lat: 32.321, lng: -64.757},
         {lat: 25.774, lng: -80.190}
-      */
+      ];
+      
 
   // Construct the polygon.
   var bermudaTriangle = new google.maps.Polygon({
@@ -89,9 +90,6 @@
 
 
 </script>
-<!--<script type="text/javascript" src="https://www.google.com/jsapi"></script>-->
-<!--<script async defer src="https://maps.googleapis.com/maps/api/js?key
-=AIzaSyANxJ7nnBsOv8PTwcEQB8cNG_lsLpsII50&libraries=visualization&callback=myMap"></script>-->
 
 <div id="map" style="width:100%;height:500px">
 
