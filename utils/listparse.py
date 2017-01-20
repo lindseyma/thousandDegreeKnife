@@ -1,8 +1,11 @@
 import json
 from pprint import pprint
 
+# with open('../data/policeprecincts.json') as data_file:    
+#     data = json.load(data_file)
+
 with open('data/policeprecincts.json') as data_file:    
-    data = json.load(data_file)
+     data = json.load(data_file)
 
 #pprint(data)
 
@@ -40,17 +43,20 @@ def form(lat,lng):
 def jsLatLng():
 	x=0
 	s=""
+	print new[len(new)-1][0]
+	if new[0][0][:3]=="(((":
+		new[0][0]=new[0][0][3:]
+	if new[len(new)-1][0][-3:]==")))":
+		new[len(new)-1][0]=new[len(new)-1][0][:-3]
 	while x <= len(new)-1:
-		s+=form(new[x][0],new[x][1])+",\\n"
+		s+=form(new[x][1],new[x][0])+", "
 		x+=1
-	s=s[:-3]
+	s=s[:-2]
 	return s	
 	
 	
 def main():
 	li = makeLatLng(data)
-	li[0][0]=li[0][0][3:]
-	li[len(li)-1][1]=li[len(li)-1][1][:-3]
-	return jsLatLng()
+	new[len(li)-1][1]=new[len(li)-1][1][:-3]
+	return "["+jsLatLng()+"]"
 	
-main()
