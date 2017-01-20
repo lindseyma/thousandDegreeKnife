@@ -1,22 +1,29 @@
-import urllib, urllib2, json
+import urllib2, json, sqlite3
 
-query = "https://data.cityofnewyork.us/resource/2fra-mtpn.json?$select=ofns_desc,location_1"
+query = "https://data.cityofnewyork.us/resource/2fra-mtpn.json?$select=ofns_desc,latitude,longitude"
 
+'''f="crime.db"
+db=sqlite.connect(f)
+c=db.cursor()
+'''
 def crimeCall():
 	try:
-		list = []
+		ret = []
 		u = urllib2.urlopen(query)
 		data=json.load(u)
 		u.close()
-		for key in data:
+		'''for key in data:
 			try:
-				list.append(key['location_1']['latitude'])
-				list.append(key['location_1']['longitude'])
+				list = []
+				list.append(key['latitude'])
+				list.append(key['longitude'])
 				list.append(key['ofns_desc'])
+				ret.append(list)
 			except:
 				pass
-		return list
-		#return data
+		'''
+		#return ret
+		return data
 	except urllib2.HTTPError, e:
 		return "HTTP error: {}".format(e.code)
 	except urllib2.URLError, e:
