@@ -20,10 +20,13 @@ def root():
         lng=-74.0059,
         style="width:100%;height:500px;"
     )
+    #center property lat long in each borough and make calls to plot the properties
     return render_template('map.html', mymap=mymap, populateLatLng = listparse.main())
 	
 @app.route("/listing/")
 def listing():
+		# in rendering, show house details for the selected house
+		#zip, street, lat long, amt, contact, photos
     return render_template("house.html", house="")
 
 if __name__ == '__main__':
