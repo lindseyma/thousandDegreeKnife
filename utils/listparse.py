@@ -60,8 +60,9 @@ def jsLatLng():
 	
 	
 def main():
-	li = makeLatLng(data)
-	new[len(li)-1][1]=new[len(li)-1][1][:-3]
+	#li = makeLatLng(data)
+	#new[len(li)-1][1]=new[len(li)-1][1][:-3]
+	popNew()
 	print "["+jsLatLng()+"]"
 	
 	return "["+jsLatLng()+"]"
@@ -72,6 +73,7 @@ def main():
 x = 0
 while x < len(data["data"])-1:
 	makeLatLng( data["data"][x][10] )
+	x+=1
 print new
 
 	

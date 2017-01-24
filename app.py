@@ -1,5 +1,5 @@
 from flask import Flask, render_template, request
-from utils import listparse
+from utils import listparse, plot
 from flask_googlemaps import GoogleMaps
 from flask_googlemaps import Map
 
@@ -21,7 +21,7 @@ def root():
         style="width:100%;height:500px;"
     )
     #center property lat long in each borough and make calls to plot the properties
-    return render_template('map.html', mymap=mymap, populateLatLng = listparse.main())
+    return render_template('map.html', mymap=mymap, populateLatLng = listparse.main(), crimeList = len(plot.crimeCall()), crime = plot.crimeCall())
 	
 @app.route("/listing/")
 def listing():

@@ -88,7 +88,17 @@
 		
 			}
 
-
+  var i;
+  var len = {{crimeList}};
+  for (i = 0; i < len; i++){
+    console.log(i + {{crime}});
+  }
+  var myLatLng = new google.maps.LatLng({{crime}}[0][0],{{crime}}[0][1]);
+  var marker = new google.maps.Marker({
+    position: myLatLng,
+    map: map,
+    title: 'Hello World!'
+  });
 </script>
 
 <div id="map" style="width:100%;height:500px">
