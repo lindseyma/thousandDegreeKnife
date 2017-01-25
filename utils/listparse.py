@@ -44,6 +44,7 @@ def genCenter():
 	borderListv2 = []
 	centerList = []
 	rowNum = 0
+	print("len(borderList) = %s\n\n")%(len(borderList))
 	for row in borderList:
 		print("row %d length = %s")%(rowNum + 1, len(row))
 		time.sleep(1)
@@ -56,9 +57,6 @@ def genCenter():
 			lat = (float)(coordinate[1]) 
 			lon = (float)(coordinate[0])
 			print [lat, lon]
-			#if [lat, lon] == singleArea[0]: print("\n\n[lat, lon] == singleArea[0] \tYES\n")
-			#if len(singleArea) > 1: print("len(singleArea) > 1 \tYES\n")
-			#if pos < len(row) - 1: print("pos < len(row) - 1 \tYES\n\n")
 			if [lat, lon] == singleArea[0] and len(singleArea) > 1 and pos < len(row) - 1: #end of area, not of row 
 				print("\nhit same coordinate\n")
 				del singleArea[0]
@@ -71,17 +69,12 @@ def genCenter():
 				singleArea = [[nextLat, nextLon]]
 				print singleArea
 				#time.sleep(8)
-			elif [lat, lon] == singleArea[0] and len(singleArea) > 1 and pos == len(row) - 1 and rowNum < len(borderList): #end of area and row 
+			elif [lat, lon] == singleArea[0] and len(singleArea) > 1 and rowNum == len(borderList): #end of area and row 
 				print("\nhit same coordinate\n")
 				del singleArea[0]
 				borderListv2.append(singleArea)
-				print("\n\nprinting final single area, end of row\n\n")
+				print("\n\nprinting final single area, end of row AND entire list\n\n")
 				print str(singleArea) + "\t" + str(len(singleArea))
-				nextLat = (float)(borderList[rowNum + 1][0][1])
-				nextLon = (float)(borderList[rowNum + 1][0][0])
-				print("\n\n\nprinting first latlong of next row\n")
-				singleArea = [[nextLat, nextLon]]
-				print singleArea
 				#time.sleep(8)
 			else:
 				print("\nadding coordinate\n")
