@@ -70,21 +70,36 @@
 		<div class="col-md-6" style="border: 2px solid black">
 	
 			<div class="row" style="border: 2px solid black">
-				{{price from zillow}}
+				{{price}}
 			</div>
 		
 			</div class="row" style="border: 2px solid black">
-				{{Things in Neighborhood/details}}
+				{{details}}
 			</div>	
 		
 		</div>
 	
-		<div class="row" style="border: 2px solid black">
-			{{crime info/(maybe make this contact info actually)}}
+		<div id="news" style="border: 2px solid black">
+
 		</div>	
 
 	</div>
-
+	
+	<script src="/static/jquery.min.js"></script>
+	<script type="text/javascript">
+		$.ajax({
+			dataType: "json",
+			url: "/news/",
+			success: function(data){
+				//console.log(data);
+				newsdiv = document.getElementById("news")
+				data.results.forEach(function(elem){
+					newsdiv.innerHTML += '<a href="' + elem['url'] + '" target="_blank">"' + elem['title'] + '"</a> ' + elem['byline'] + '<br>' + elem['abstract'] + '<br><br>';
+				});
+			}
+		});
+	</script>
+	
 </body>
 
 </html>
