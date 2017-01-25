@@ -20,20 +20,7 @@ def root():
         lat=40.7128, 
         lng=-74.0059,
         style="width:100%;height:500px;",
-        markers=[
-            {
-                'icon': 'http://maps.google.com/mapfiles/ms/icons/red-dot.png',
-                'lat':  40.7177,
-                'lng':  -74.0139,
-                'infobox': "Hello I am < b style='color:green;'>B< / b >!"
-            },
-            {
-                'icon': 'http://maps.google.com/mapfiles/ms/icons/red-dot.png',
-                'lat':  41.7177,
-                'lng':  -74.0139,
-                'infobox': "Hello I am < b style='color:green;'>B< / b >!"
-            }
-        ]
+        markers=plot.crimeCall()
     )
     #center property lat long in each borough and make calls to plot the properties
     return render_template('map.html', mymap=mymap, populateLatLng = "listparse.main()", crimeList = len(plot.crimeCall()), crime = plot.crimeCall(), NYTKey=NYTKey)
