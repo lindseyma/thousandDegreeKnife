@@ -5,7 +5,7 @@ import re
 # with open('../data/policeprecincts.json') as data_file:    
 #     data = json.load(data_file)
 
-with open('../data/policeprecincts.json') as data_file:    
+with open('data/policeprecincts.json') as data_file:    
      data = json.load(data_file)
 
 #pprint(data)
@@ -46,7 +46,6 @@ def genBorder():
 	
 def genCenter():
 	return 1
-
 	
 	
 	
@@ -70,7 +69,8 @@ print x
 '''
 
 #makeLatLng( data[13:] )
-genBorder()
+#genBorder()
+#genCenter(new[0])
 #print new
 
 

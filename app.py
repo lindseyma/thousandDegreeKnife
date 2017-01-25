@@ -18,10 +18,18 @@ def root():
         identifier="view-side",
         lat=40.7128, 
         lng=-74.0059,
-        style="width:100%;height:500px;"
+        style="width:100%;height:500px;",
+        markers=[
+            {
+                'icon': 'http://maps.google.com/mapfiles/ms/icons/blue-dot.png',
+                'lat':  40.7177,
+                'lng':  -74.0139,
+                'infobox': "Hello I am < b style='color:green;'>B< / b >!"
+            }
+        ]
     )
     #center property lat long in each borough and make calls to plot the properties
-    return render_template('map.html', mymap=mymap, populateLatLng = listparse.main(), crimeList = len(plot.crimeCall()), crime = plot.crimeCall())
+    return render_template('map.html', mymap=mymap, populateLatLng = "listparse.main()", crimeList = len(plot.crimeCall()), crime = plot.crimeCall())
 	
 @app.route("/listing/")
 def listing():
