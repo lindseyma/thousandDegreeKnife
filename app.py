@@ -1,5 +1,5 @@
 from flask import Flask, render_template, request
-from utils import listparse, plot
+from utils import listparse, plot, APIReader
 from flask_googlemaps import GoogleMaps
 from flask_googlemaps import Map
 
@@ -8,11 +8,12 @@ import json
 
 
 app = Flask(__name__)
-GoogleMaps(app, key="AIzaSyANxJ7nnBsOv8PTwcEQB8cNG_lsLpsII50")
+GoogleMaps(app, key=APIReader.getKey("Google_Maps"))
 
 
 @app.route("/")
 def root():
+    NYTKey = APIReader.getKey("NTY_topstoriesV2")
     # creating a map in the view
     mymap = Map(
         identifier="view-side",
@@ -21,15 +22,21 @@ def root():
         style="width:100%;height:500px;",
         markers=[
             {
-                'icon': 'http://maps.google.com/mapfiles/ms/icons/blue-dot.png',
+                'icon': 'http://maps.google.com/mapfiles/ms/icons/red-dot.png',
                 'lat':  40.7177,
+                'lng':  -74.0139,
+                'infobox': "Hello I am < b style='color:green;'>B< / b >!"
+            },
+            {
+                'icon': 'http://maps.google.com/mapfiles/ms/icons/red-dot.png',
+                'lat':  41.7177,
                 'lng':  -74.0139,
                 'infobox': "Hello I am < b style='color:green;'>B< / b >!"
             }
         ]
     )
     #center property lat long in each borough and make calls to plot the properties
-    return render_template('map.html', mymap=mymap, populateLatLng = "listparse.main()", crimeList = len(plot.crimeCall()), crime = plot.crimeCall())
+    return render_template('map.html', mymap=mymap, populateLatLng = "listparse.main()", crimeList = len(plot.crimeCall()), crime = plot.crimeCall(), NYTKey=NYTKey)
 	
 @app.route("/listing/")
 def listing():
