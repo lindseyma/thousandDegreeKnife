@@ -14,24 +14,24 @@ def crimeCall():
 		u.close()
 		for key in data:
 			try:
-				list = []
-				list.append(key['latitude'])
-				list.append(key['longitude'])
-				list.append(key['ofns_desc'])
-				ret.append(list)
+				dict = {}
+				dict['icon'] = 'http://maps.google.com/mapfiles/ms/icons/red-dot.png'
+				dict['lat'] = key['latitude']
+				dict['lng'] = key['longitude']
+				dict['infobox'] = key['ofns_desc']
+				ret.append(dict)
 			except:
 				pass
-		
 		return ret
 		#return data
 	except urllib2.HTTPError, e:
 		return "HTTP error: {}".format(e.code)
 	except urllib2.URLError, e:
 		return "Network error: {}".format(e.reason.args[1])
-	
+    
 	##json_string = u.read()
 	##parsed_json = json.loads(json_string)
 	##return parsed_json.keys()
 	
 #print crimeCall()
-
+#print len(crimeCall())
