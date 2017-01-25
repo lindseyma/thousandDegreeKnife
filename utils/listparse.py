@@ -17,6 +17,7 @@ new = []
 smallnew = []
 #makes list from string
 def makeLatLng(s):
+	print s
     for x in re.split(r'[()]',s):
         #print x
         if len(x)>3:
