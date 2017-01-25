@@ -17,14 +17,13 @@ new = []
 smallnew = []
 #makes list from string
 def makeLatLng(s):
-	print s
-    for x in re.split(r'[()]',s):
-        #print x
-        if len(x)>3:
-            for y in x.split(", "):
-                smallnew.append(y.split(" "))
-            new.append(smallnew)
-	#return new
+	rowList = []
+	for x in re.split(r'[()]', s):
+		if len(x) > 3:
+			for y in x.split(", "):
+				rowList.append(y.split(" "))
+	#print rowList
+	return rowList
 
 #helper to remove ((( )))
 def trailing(li):
@@ -32,29 +31,23 @@ def trailing(li):
 	li[0][0]=li[0][0][3:]
 	li[len(li)-1][1]=li[len(li)-1][1][:-3]
 	
-#makes list for json data	
-def popNew():
+#generates list of 
+def genBorder():
+	allList = []
 	x=0
-	while x <= len(data["data"])-1:
+	print("the weird number is %d\n\n\n")%(len(data["data"]) - 1)
+	while x < len(data["data"]):
 		data["data"][x][10] = data["data"][x][10][13:] #cut out multipolygon
-		print data["data"][x][10]
-		#makeLatLng(data["data"][x][10])
+		allList += [makeLatLng(data["data"][x][10])]
 		x+=1
+	print("\t\tprinting allList...\n\n")
+	print allList
+	return allList
 	
-#print js
-def form(lat,lng):	
-	s="{lat: "+lat+", "+"lng: "+lng+"}"
-	return s
+def genCenter():
+	return 1
+
 	
-#recursively print js and print
-def jsLatLng():
-	x=0
-	s=""
-	while x <= len(new)-1:
-		s+=form(new[x][1],new[x][0])+", "
-		x+=1
-	s=s[:-2]
-	return s	
 	
 	
 def main():
@@ -77,8 +70,8 @@ print x
 '''
 
 #makeLatLng( data[13:] )
-popNew()
-#rint new
+genBorder()
+#print new
 
 
 	
