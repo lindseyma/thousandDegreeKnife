@@ -1,5 +1,13 @@
 #Team TYB
 
+Run these function in the terminal first
+```
+pip install Flask-googlemaps
+run pip install html5lib
+run pip install beautifulsoup4
+```
+
+
 When you're buying a house, you want to make sure the neighborhood suits you. By using our website, you can see homes for sale in New York City, and learn more about what goes on in the area around these homes. 
 
 When you open the website, you first see a google map with red and green points around the city. The green points represent a selection of houses on sale. We generated these points by using the nyc open data API to find the latitude and longitudinal borders for all 74 precincts in New York. After we found this data, we found the center of each precinct, and then found houses on sale near these precinct centers through the zillow API. 
@@ -11,9 +19,4 @@ If you find a house you are interested in, you can click its green point for mor
 With our app, you will be able to find the perfect house!
 
 
-```
-run pip install Flask-googlemaps
-run pip install html5lib
-run pip install beautifulsoup4
-```
 
