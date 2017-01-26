@@ -33,11 +33,13 @@ def root():
     #center property lat long in each borough and make calls to plot the properties
     return render_template('map.html', mymap=mymap, populateLatLng = "listparse.main()", crimeList = len(plot.crimeCall()), crime = plot.crimeCall())
 	
-@app.route("/listing/")
-def listing():
-		# in rendering, show house details for the selected house
-		#zip, street, lat long, amt, contact, photos
-    return render_template("house.html", house="")
+@app.route("/listing/<address>")
+def listing(address):
+		housesList = findHouses.genList()
+		for(i = 0; i < len(housesList); i++){
+			if (housesList[i]['address'] == address):
+				return render_template("house.html", Address=housesList[i]['address'], Price=housesList[i]['price'], Beds=houseList[i]['beds'], Bathrooms=housesList[i]['bathrooms'], latitude=housesList[i]['latitude'], longitude=housesList[i]['longitude'], facts=housesList[i]['facts'])
+    return render_template("house.html")
     
 @app.route("/news/")
 def getNews():
