@@ -146,8 +146,10 @@
 		</div>
 	
 		<!--<div id="news" style="border: 2px solid black">-->
-			<button id="b" type="button">Click for news</button>
-			<button id="h" type="button">Click to hide news</button>
+			<center>
+			<button  id="b" type="button" class="btn btn-info">Click for news</button>
+			<button  id="h" type="button" class="btn btn-secondary">Click to hide news</button>
+			</center>
 			<div id="news"></div>
 		<!--</div>	-->
 
@@ -179,6 +181,29 @@
 	
   <script src="/static/bootstrap-3.3.7/js/bootstrap.min.js"></script>
 	
+  <style>
+
+  
+		.carousel-inner > .item {
+		height: 100vh;
+		}
+
+		.carousel-inner > .item > img {
+		position: absolute;
+		top: 50%;
+		left: 50%;
+		-webkit-transform: translate(-50%, -50%);
+		-ms-transform: translate(-50%, -50%);
+		transform: translate(-50%, -50%);
+		/*max-height: 800px;*/
+		width: auto;
+		}
+
+
+  </style>
+
+
+
 </body>
 
 </html>
