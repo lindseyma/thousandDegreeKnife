@@ -1,4 +1,4 @@
-markers=[
+data="""
 
     {
 
@@ -252,19 +252,6 @@ markers=[
 
 },
 
-{
-
-
-
-        'icon':'http://maps.google.com/mapfiles/ms/icons/green-dot.png',
-
-        'infobox': '12421 Flatlands Ave APT 5B',
-
-        'lat': 40.657533,
-
-        'lng': -73.876199
-
-},
 
 {
 
@@ -707,3 +694,15 @@ markers=[
         'lng': -72.799583
 
 }
+"""
+
+ret=[]
+for line in data.splitlines():
+    latNum=data.find("lat")+6
+    lat=data[latNum:latNum+9]
+    lngNum=data.find("lng")+6
+    lng=data[lngNum:lngNum+9]
+    ret.append([lat,lng])
+    data=data[lngNum:]
+
+print ret
