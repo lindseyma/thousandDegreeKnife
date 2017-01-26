@@ -20,68 +20,38 @@
   <link rel="shortcut icon" href=""> {{"decoupled-map"|googlemap_js(lat=40.7128, lng=-74.0059, style="width:100%;height:500px;")}} {{mymap.js}}
 
 </head>
-<!--temporary note: make function w/ for loop to go thru crimes; plot as
-	var heatMapData=[
-		new google.maps.LatLng(lat, long),etc
-	]
--->
+
 <body style="margin: 20px 20px 20px 20px;">
-<div class="container">
-  <div class="row">
-    <!--buttons-->
-    <div class="col-md-4 pre-scrollable" style="border: 2px solid black; max-height: 600px">
-<!--<div class="container" style="position: fixed">-->
-<center>
-  <h1>New York</h1>
-</center>
-<center>
-  <h4>Neighborhood News</h4>
-</center>
-<script type="text/javascript">
-  var url = "https://api.nytimes.com/svc/topstories/v2/nyregion.json";
-  url += '?' + $.param({
-    'api-key': {{NYTKey}}
-  });
-  $.ajax({
-    url: url,
-    method: 'GET',
-  }).done(function (result) {
-    console.log(result);
-  }).fail(function (err) {
-    throw err;
-  });
-$.getJSON("https://api.nytimes.com/svc/topstories/v2/nyregion.json?api-key=560c6677b26349229b2ca65a9a462a8c", function(data){
-alert(data);
-});
-/*
-  $.getJSON('http://anyorigin.com/get?url=http%3A//api.nytimes.com/svc/topstories/v2/nyregion.json&callback=?', function(data){
-$('#output').html(data.contents);
-});
-*/
+	<div class="container">
+		<div class="row">
+			<!--buttons-->
+			<div class="col-md-4 pre-scrollable" style="border: 2px solid black; max-height: 600px">
+			<!--<div class="container" style="position: fixed">-->
+			<center>
+				<h1>New York</h1>
+			</center>
+			<center>
+				<h4>Neighborhood News</h4>
+			</center>
 
+			<!--</div>-->
+			</div>
 
-</script>
-<!--</div>-->
-</div>
+			<br>
 
-<br>
+		</div>
 
-</div>
+		<!---->
+		<!--map-->
+		<div class="row">
+			<div class="col-md-8" style="border: 2px solid black">
 
+			<div id="map" style="width:100%;height:500px"> {{mymap.html}}
+			</div>
 
-
-<!---->
-<!--map-->
-<div class="col-md-8" style="border: 2px solid black">
-
-<div id="map" style="width:100%;height:500px"> {{mymap.html}}
-</div>
-
-
-
-
-</div>
-</div>
+			</div>
+		</div>
+	</div>
 
 </body>
 
