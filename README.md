@@ -11,7 +11,7 @@ If you find a house you are interested in, you can click its green point for mor
 With our app, you will be able to find the perfect house!
 
 
-```run pip install Flask-googlemaps
-run pip install html5lib
-run pip install beautifulsoup4```
+```run pip install Flask-googlemaps```
+```run pip install html5lib```
+```run pip install beautifulsoup4```
 
