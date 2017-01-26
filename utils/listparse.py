@@ -1,5 +1,6 @@
 import json, re, math, time
 from pprint import pprint
+import plot
 
 # with open('../data/policeprecincts.json') as data_file:    
 #     data = json.load(data_file)
@@ -32,7 +33,7 @@ allList = []
 #generates list of 
 def genBorder():
 	x=0
-	print("the weird number is %d\n\n\n")%(len(data["data"]) - 1)
+	#print("the weird number is %d\n\n\n")%(len(data["data"]) - 1)
 	while x < len(data["data"]):
 		data["data"][x][10] = data["data"][x][10][13:] #cut out multipolygon
 		allList.append(makeLatLng(data["data"][x][10]))
@@ -44,53 +45,93 @@ def genCenter():
 	borderListv2 = []
 	centerList = []
 	rowNum = 0
-	print("len(borderList) = %s\n\n")%(len(borderList))
+	#print("len(borderList) = %s\n\n")%(len(borderList))
 	for row in borderList:
-		print("row %d length = %s")%(rowNum + 1, len(row))
-		time.sleep(1)
+		#print("row %d length = %s")%(rowNum + 1, len(row))
+		#time.sleep(1)
 		pos = 0;
 		initLat = (float)(row[0][1])
 		initLon = (float)(row[0][0])
 		singleArea = [[initLat, initLon]]
 		for coordinate in row:
-			print("\n\n\nprinting latlong\n")
+			#print("\n\n\n#printing latlong\n")
 			lat = (float)(coordinate[1]) 
 			lon = (float)(coordinate[0])
-			print [lat, lon]
+			#print [lat, lon]
 			if [lat, lon] == singleArea[0] and len(singleArea) > 1 and pos < len(row) - 1: #end of area, not of row 
-				print("\nhit same coordinate\n")
+				#print("\nhit same coordinate\n")
 				del singleArea[0]
 				borderListv2.append(singleArea)
-				print("\n\nprinting final single area, not end of row\n\n")
-				print str(singleArea) + "\t" + str(len(singleArea))
+				#print("\n\n#printing final single area, not end of row\n\n")
+				#print str(singleArea) + "\t" + str(len(singleArea))
 				nextLat = (float)(row[pos+1][1])
 				nextLon = (float)(row[pos+1][0])
-				print("\n\n\nprinting first latlong of next area\n")
+				#print("\n\n\n#printing first latlong of next area\n")
 				singleArea = [[nextLat, nextLon]]
-				print singleArea
+				#print singleArea
 				#time.sleep(8)
 			elif [lat, lon] == singleArea[0] and len(singleArea) > 1 and rowNum == len(borderList): #end of area and row 
-				print("\nhit same coordinate\n")
+				#print("\nhit same coordinate\n")
 				del singleArea[0]
 				borderListv2.append(singleArea)
-				print("\n\nprinting final single area, end of row AND entire list\n\n")
-				print str(singleArea) + "\t" + str(len(singleArea))
+				#print("\n\n#printing final single area, end of row AND entire list\n\n")
+				#print str(singleArea) + "\t" + str(len(singleArea))
 				#time.sleep(8)
 			else:
-				print("\nadding coordinate\n")
+				#print("\nadding coordinate\n")
 				singleArea += [[lat, lon]]
-				print str(singleArea) + "\t" + str(len(singleArea))
+				#print str(singleArea) + "\t" + str(len(singleArea))
 				#time.sleep(0.1)
 			pos += 1
 		rowNum += 1
-	print("\n\ndone!\n")
+	
+	#print("\n\ndone!\n")
+	for neighborhood in borderListv2:
+		centerLat = 0
+		centerLon = 0
+		for coordinate in neighborhood:
+			centerLat += coordinate[0]
+			centerLon += coordinate[1]
+		centerLat = centerLat / len(neighborhood)
+		centerLon = centerLon / len(neighborhood)
+		centerList.append([centerLat, centerLon])
+		centerLat = 0
+		centerLon = 0
+
+	return centerList
+	#print "\ndone2!\n"
 	#print("\n\nprinting borderListv2\n\n")
 	#print borderListv2
 
+def centerCall(listOfCenters):
 
+	ret = []
+	for key in listOfCenters:
 
-			
+		dict = {}
+		dict['icon'] = 'http://maps.google.com/mapfiles/ms/icons/green-dot.png'
+		dict['lat'] = key[0]
+		dict['lng'] = key[1]
+		dict['infobox'] = "address"
+		ret.append(dict)
+	return ret
 
+def makeMarkers(L1,L2):
+	ret = []
+	for key1 in L1:
+		ret.append(key1)
+	for key2 in L2:
+		ret.append(key2)
+	return ret
+'''
+def makeMarkers(L1,L2):
+	ret = []
+	for key1 in L1:
+		print key1
+	for key2 in L2:
+		print key2
+	return True
+'''
 
 
 	
@@ -116,9 +157,8 @@ print x
 '''
 
 genBorder()
-#genCenter()
-L = [[1, 1], [2, 2]]
-print L[0]
-
-	
-	
+genCenter()
+#print makeMarkers(plot.crimeCall(),centerCall(genCenter()))
+#print genCenter()
+#L = [[1, 1], [2, 2]]
+#print L[0]

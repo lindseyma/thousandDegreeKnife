@@ -19,8 +19,9 @@ def root():
         lat=40.7128, 
         lng=-74.0059,
         style="width:100%;height:500px;",
-        markers=plot.crimeCall()
+        markers=listparse.makeMarkers(plot.crimeCall(),listparse.centerCall(listparse.genCenter()))
     )
+
     #center property lat long in each borough and make calls to plot the properties
     return render_template('map.html', mymap=mymap, populateLatLng = "listparse.main()", crimeList = len(plot.crimeCall()), crime = plot.crimeCall())
 	
