@@ -80,23 +80,28 @@
 		</div>
 	
 		<div id="news" style="border: 2px solid black">
-
+			<button id="b" type="button">Click for news</button>
 		</div>	
 
 	</div>
 	
 	<script src="/static/jquery.min.js"></script>
 	<script type="text/javascript">
-		$.ajax({
-			dataType: "json",
-			url: "/news/",
-			success: function(data){
-				//console.log(data);
-				newsdiv = document.getElementById("news")
-				data.results.forEach(function(elem){
-					newsdiv.innerHTML += '<a href="' + elem['url'] + '" target="_blank">"' + elem['title'] + '"</a> ' + elem['byline'] + '<br>' + elem['abstract'] + '<br><br>';
-				});
-			}
+		var b = document.getElementById("b")
+		b.addEventListener("click", function(){
+			$.ajax({
+				dataType: "json",
+				url: "/news/",
+				success: function(data){
+					//console.log(data);
+					var newsStr = '';
+					data.results.forEach(function(elem){
+						newsStr += '<a href="' + elem['url'] + '" target="_blank">"' + elem['title'] + '"</a> ' + elem['byline'] + '<br>' + elem['abstract'] + '<br><br>';
+					});
+					newsStr += '</div>';
+					document.getElementById("news").innerHTML = newsStr;
+				}
+			});
 		});
 	</script>
 	
