@@ -6,5 +6,3 @@ def newsCall(APIKey):
   data = u.read()
   u.close()
   return data
-  
-#print newsCall("560c6677b26349229b2ca65a9a462a8c")
