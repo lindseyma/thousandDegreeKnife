@@ -3,8 +3,8 @@
 Run these function in the terminal first
 ```
 pip install Flask-googlemaps
-run pip install html5lib
-run pip install beautifulsoup4
+pip install html5lib
+pip install beautifulsoup4
 ```
 
 
