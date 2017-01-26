@@ -1,0 +1,5 @@
+we didn't end up plotting nearby neighborhoods or transportation stops.
+due to legal issues we cannot get a lot fo information from individual houses.
+due to government conspiracies centers of neighborhoods do not show up in the center.
+news is displayed on house.html instead of map.html
+migrated from directly calling google maps api to a flask_googlemaps tool that helps communicate between different files.
