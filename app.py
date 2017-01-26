@@ -35,11 +35,13 @@ def root():
 	
 @app.route("/listing/<address>")
 def listing(address):
-    housesList = findHouses.genList()
-    for i in houseList:
-        if i['address'] == address:
-            return render_template("house.html", Address=address, Price=i['price'], Beds=i['beds'], Bathrooms=i['bathrooms'], latitude=i['latitude'], longitude=i['longitude'], facts=i['facts'])
-    return render_template("house.html")
+		try:
+			housesList = findHouses.genList()
+			for i in houseList:
+					if i['address'] == address:
+							return render_template("house.html", Address=address, Price=i['price'], Beds=i['beds'], Bathrooms=i['bathrooms'], latitude=i['latitude'], longitude=i['longitude'], facts=i['facts'])
+		except:
+			return render_template("house.html", Address=address, Price="$", Beds="Num of Beds", Bathrooms="Num of Bathrooms", latitude="latitude", longitude="longitude", facts="facts")
     
 @app.route("/news/")
 def getNews():
