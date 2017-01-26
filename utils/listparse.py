@@ -110,7 +110,7 @@ def centerCall(listOfCenters):
 		dict['icon'] = 'http://maps.google.com/mapfiles/ms/icons/green-dot.png'
 		dict['lat'] = key[0]
 		dict['lng'] = key[1]
-		dict['infobox'] = "address"
+		dict['infobox'] = '<a href="listing/">440 Riverside Dr APT 88, New York, NY 10027</a>'
 		ret.append(dict)
 	return ret
 
