@@ -14,12 +14,15 @@ GoogleMaps(app, key=APIReader.getKey("Google_Maps"))
 @app.route("/")
 def root():
     # creating a map in the view
+    centerlist=[[40.8089, -73.9673697]]
+    L2=listparse.centerCall(centerlist)
+
     mymap = Map(
         identifier="view-side",
-        lat=40.7128, 
-        lng=-74.0059,
+        lat=40.8089,
+        lng=-73.9673697,
         style="width:100%;height:500px;",
-        markers=listparse.makeMarkers(plot.crimeCall(),listparse.centerCall(listparse.genCenter()))
+        markers=listparse.makeMarkers(plot.crimeCall(),L2)
     )
 
     #center property lat long in each borough and make calls to plot the properties

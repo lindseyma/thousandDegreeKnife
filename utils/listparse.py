@@ -45,61 +45,61 @@ def genCenter():
 	borderListv2 = []
 	centerList = []
 	rowNum = 0
-	print("len(borderList) = %s\n\n")%(len(borderList))
+	#print("len(borderList) = %s\n\n")%(len(borderList))
 	for row in borderList:
-		print("row %d length = %s")%(rowNum + 1, len(row))
-		time.sleep(0.5)
+		#print("row %d length = %s")%(rowNum + 1, len(row))
+		#time.sleep(0.5)
 		pos = 0;
 		initLat = (float)(row[0][1])
 		initLon = (float)(row[0][0])
 		singleArea = [[initLat, initLon]]
 		for coordinate in row:
-			print("\n\n\nprinting latlong\n")
+			#print("\n\n\nprinting latlong\n")
 			lat = (float)(coordinate[1]) 
 			lon = (float)(coordinate[0])
 			#print [lat, lon]
 			if [lat, lon] == singleArea[0] and len(singleArea) > 1 and pos < len(row) - 1: #end of area, not of row 
-				print("\nhit same coordinate\n")
+				#print("\nhit same coordinate\n")
 				del singleArea[0]
 				borderListv2.append(singleArea)
-				print("\n\nprinting final single area, not end of row\n\n")
+				#print("\n\nprinting final single area, not end of row\n\n")
 				#print str(singleArea) + "\t" + str(len(singleArea))
 				nextLat = (float)(row[pos+1][1])
 				nextLon = (float)(row[pos+1][0])
-				print("\n\n\nprinting first latlong of next area\n")
+				#print("\n\n\nprinting first latlong of next area\n")
 				singleArea = [[nextLat, nextLon]]
 				#print singleArea
 				#time.sleep(8)
 			elif [lat, lon] == singleArea[0] and len(singleArea) > 1 and rowNum == len(borderList): #end of area and row 
-				print("\nhit same coordinate\n")
+				#print("\nhit same coordinate\n")
 				del singleArea[0]
 				borderListv2.append(singleArea)
-				print("\n\nprinting final single area, end of row AND entire list\n\n")
+				#print("\n\nprinting final single area, end of row AND entire list\n\n")
 				#print str(singleArea) + "\t" + str(len(singleArea))
 			else:
-				print("\nadding coordinate\n")
+				#print("\nadding coordinate\n")
 				singleArea += [[lat, lon]]
 				#print str(singleArea) + "\t" + str(len(singleArea))
 				#time.sleep(0.1)
 			pos += 1
 		rowNum += 1
 	
-	print("\n\ndone!\n")
-	'''
+	#print("\n\ndone!\n")
+	
 	for neighborhood in borderListv2:
 		centerLat = 0
 		centerLon = 0
-		print borderListv2[len(borderListv2)-1]
+		#print borderListv2[len(borderListv2)-1]
 		for coordinate in neighborhood:
 			centerLat += coordinate[0]
 			centerLon += coordinate[1]
 		centerLat = centerLat / len(neighborhood)
 		centerLon = centerLon / len(neighborhood)
 		centerList.append([centerLat, centerLon])
-	'''
-	print "\ndone2!\n"
-	print("\n\nprinting borderListv2\n\n")
-	print borderListv2
+	return centerList
+	#print "\ndone2!\n"
+	#print("\n\nprinting borderListv2\n\n")
+	#print borderListv2
 
 def centerCall(listOfCenters):
 
@@ -125,9 +125,9 @@ def makeMarkers(L1,L2):
 def makeMarkers(L1,L2):
 	ret = []
 	for key1 in L1:
-		print key1
+		#print key1
 	for key2 in L2:
-		print key2
+		#print key2
 	return True
 '''
 
@@ -139,7 +139,7 @@ def main():
 	#li = makeLatLng(data)
 	#new[len(li)-1][1]=new[len(li)-1][1][:-3]
 	#popNew()
-	print "["+jsLatLng()+"]"
+	#print "["+jsLatLng()+"]"
 	
 	return "["+jsLatLng()+"]"
 	
@@ -157,6 +157,8 @@ print x
 genBorder()
 #print genCenter()
 #print makeMarkers(plot.crimeCall(),centerCall(genCenter()))
-genCenter()
+
+centerlist=[[40.8089, -73.9673697]]
+#print centerCall(centerlist)
 #L = [[1, 1], [2, 2]]
 #print L[0]
