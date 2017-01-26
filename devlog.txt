@@ -69,6 +69,9 @@ Plotted crimes on google maps
 reoK -- 2017-01-25 03:00
 Working on getting centers of neighborhoods.
 
+janetZ, reoK, lindseyM, elinaH -- 2017-01-26 08:00
+Pushed all we have to github.
+
 
 
 
