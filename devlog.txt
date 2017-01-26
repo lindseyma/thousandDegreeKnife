@@ -14,3 +14,62 @@ Basic file structure completed
  
 lindseyM, janetZ, reoK, elinaH -- 2017-01-12 12:33
 Put Google map onto website; continued working on Zillow API data
+ 
+janetZ -- 2017-01-15 22:20
+Debugged Google Maps and put it back into html.
+
+janetZ -- 2017-01-16 12:33
+Tested making a polygon on Google Maps
+
+reoK -- 2017-01-16 12:33
+Continued to work on Zillow API.
+
+lindseyM, elinaH -- 2017-01-16 12:33
+Continued to work on parsing the crime.csv.
+
+janetZ -- 2017-01-17 12:33
+Started listparse.py to parse through neighborhood boundaries.
+
+janetZ -- 2017-01-18 12:33
+Continued to work on list parse functions.
+
+lindseyM, elinaH -- 2017-01-19 12:33
+Worked on ploy.py
+
+janetZ -- 2017-01-19 12:33
+Continued to work on list parse functions.
+
+janetZ -- 2017-01-19 12:33
+Continued to work on list parse functions.
+
+lindseyM, elinaH -- 2017-01-20 12:33
+Started converting data.
+
+janetZ -- 2017-01-20 12:33
+Work on list parse
+
+janetZ -- 2017-01-23 12:33
+Switched google maps api to flask-google maps tool
+
+lindseyM, elinaH -- 2017-01-23 12:33
+Trying to plot
+
+janetZ, reoK -- 2017-01-24 09:00
+debugging listparse.py functions
+
+lindseyM, elinaH -- 2017-01-24 09:00
+Trying to plot
+
+reoK -- 2017-01-25 01:00
+listparse.py generates border lat-long list without coordinate duplicates
+
+janetZ, lindseyM, elinaH -- 2017-01-24 01:00
+Plotted crimes on google maps
+
+reoK -- 2017-01-25 03:00
+Working on getting centers of neighborhoods.
+
+
+
+
+

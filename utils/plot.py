@@ -33,5 +33,5 @@ def crimeCall():
 	##parsed_json = json.loads(json_string)
 	##return parsed_json.keys()
 	
-#print crimeCall()
+print crimeCall()
 #print len(crimeCall())
