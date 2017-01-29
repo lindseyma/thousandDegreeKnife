@@ -204,7 +204,6 @@ def getDetailLink(zpid):
 		latitude = str(soup.latitude.text)
 		longitude = str(soup.longitude.text)
 		retInfo = [link, latitude, longitude]
-		print retInfo
 		return retInfo
 	else:
 		return "retInfo = NONE"
@@ -222,16 +221,21 @@ def getPropertyInfo(infoList):
 	infoDict['address'] = str(soup.title.text).split("|")[0].strip()
 	infoDict['latitude'] = infoList[1]
 	infoDict['longitude'] = infoList[2]
+	infoDict['description'] = soup.find(property="og:description").get("content")
 	#infoDict['image1'] = 'url'
-	print "\n" + str(soup.title.text).split("|")[0].strip() + "\n"
-	#print "\n" + str(soup.find_all("meta content")) + "\n\n\n"
-	print soup.find(property="og:description").get("content")
-	l = [x['src'] for x in soup.findAll('img', {'class': 'hip-photo'})]
-	print l
+	####get address
+	#print "\n" + str(soup.title.text).split("|")[0].strip() + "\n"
+	####get description
+	#print soup.find(property="og:description").get("content")
+	####get image url
+	l=[]
+	#print soup.find_all('ul', class_="photo-wall-content")
+	#print soup.find_all('img', class_="hip-photo")
 	# for tag in soup.find("meta", name="ROBOTS"):
 	#     print tag["content"]
 	#soup.prettify()
-	return infoDict
+	return soup
+	#return infoDict
 
 
 
@@ -243,5 +247,8 @@ if __name__ == "__main__":
 	#genDictEntry("468 Riverside Dr APT 74", "10027")
 	#print findMatches(1000)
 	zpid=79508100
-	print getPropertyInfo(getDetailLink(zpid))
-	print genPropertyDictList(findMatches(1000))
+	#f = open('out.html', 'w')
+	#print >> f, 
+	#f.close()
+	getPropertyInfo(getDetailLink(zpid))
+	#print genPropertyDictList(findMatches(1000))
