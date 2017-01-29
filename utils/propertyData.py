@@ -58,7 +58,6 @@ def isProperty(address, zipcode):
 # into a listthe address/zipcode of those that match to a property
 def findMatches(n):
 	allCoords = genCoordinateList()
-	print allCoords
 	matchList = []
 	counter = 0
 	instream = open('../keys.csv','r')
@@ -71,11 +70,11 @@ def findMatches(n):
 		q += latlngStr
 		q += "&key=" + googleKey
 		if counter % n == 0:
+			print latlngStr
 			u = urllib2.urlopen(q)
 			response = u.read()
 			d = json.loads(response)
 			formatted_address = d["results"][0]["formatted_address"]
-			addList.append(str(formatted_address))
 			address = str(formatted_address.split(", ")[0])
 			print address + "\n"
 			zipcode = str(formatted_address.split(", ")[2][-5:])
@@ -84,6 +83,7 @@ def findMatches(n):
 				matchList.append(isProperty(address, zipcode))
 				#print("\nsuccess!")
 		counter += 1
+	# print matchList
 	return matchList
 
 # creates a dictionary of property info for a given address/zipcode
@@ -107,6 +107,7 @@ def genDictEntry(address, zipcode):
     infoDict['latitude'] = str(soup.latitude.text)
     infoDict['longitude'] = str(soup.longitude.text)
     infoDict['zestimatePrice'] = "$" + str(soup.amount.text)
+    infoDict['detailsLink'] = str(soup.homedetails.text)
     if str(soup.bathrooms) != 'None':
     	infoDict['bathrooms'] = str(soup.bathrooms.text)
     if str(soup.bedrooms) != 'None':
@@ -145,8 +146,59 @@ def makeMarkers(L1,L2):
 		ret.append(key2)
 	return ret
 
+def main():
+	print "["+jsLatLng()+"]"
+	return "["+jsLatLng()+"]"
+
+
+# functions for site scraping
+'''
+def getDetailLink(zpid):
+    instream = open('../keys.csv','r')
+    content = instream.readlines()
+    instream.close()
+    zKey = content[1].split(",")[1].strip("\n")
+    q = "http://www.zillow.com/webservice/GetZestimate.htm?"
+    q += "zws-id=" + zKey
+    q += "&zpid=" + zpid
+    u = urllib2.urlopen(q)
+    response = u.read()
+    soup = BeautifulSoup(response, "xml")
+    link = str(soup.homedetails.text)
+    latitude = str(soup.latitude.text)
+    longitude = str(soup.longitude.text)
+    retInfo = [link, latitude, longitude]
+    print retInfo
+    return retInfo
+'''
+
+'''
+# scrape data off of the property's info page and package as dict
+def getPropertyInfo(infoList):
+    link = infoList[0]
+    u = urllib2.urlopen(link)
+    response = u.read()
+    soup = BeautifulSoup(response, "html5lib")
+    infoDict = {}
+    infoDict['address'] = str(soup.title.text).split("|")[0].strip()
+    infoDict['latitude'] = infoList[1]
+    infoDict['longitude'] = infoList[2]
+    #infoDict['image1'] = 'url'
+    print "\n" + str(soup.title.text).split("|")[0].strip() + "\n"
+    print "\n" + str(soup.find_all("meta content")) + "\n\n\n"
+    # for tag in soup.find("meta", name="ROBOTS"):
+    #     print tag["content"]
+    print soup
+    #return infoDict
+'''
+
+
+
+
+
 if __name__ == "__main__":
 	#print isProperty("545 West 111th Street", "10025")
 	#L = findMatches(4000)
 	#genDictEntry("468 Riverside Dr APT 74", "10027")
-	#genPropertyDictList(findMatches(1000))
+	#print findMatches(1000)
+	print genPropertyDictList(findMatches(1000))
