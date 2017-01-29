@@ -89,36 +89,37 @@ def findMatches(n):
 # creates a dictionary of property info for a given address/zipcode
 # assumes that given address/zipcode exists in zillow database
 def genDictEntry(address, zipcode):
-    infoDict = {}
-    address = address.replace(" ", "+")
-    instream = open('../keys.csv','r')
-    content = instream.readlines()
-    instream.close()
-    zKey = content[1].split(",")[1].strip("\n")
-    q = "http://www.zillow.com/webservice/GetDeepSearchResults.htm?"
-    q += "zws-id=" + zKey
-    q += "&address=" + address
-    q += "&citystatezip=" + zipcode
-    u = urllib2.urlopen(q)
-    response = u.read()
-    soup = BeautifulSoup(response, "xml")
-    infoDict['address'] = str(soup.street.text)
-    infoDict['zipcode'] = str(soup.zipcode.text)
-    infoDict['latitude'] = str(soup.latitude.text)
-    infoDict['longitude'] = str(soup.longitude.text)
-    infoDict['zestimatePrice'] = "$" + str(soup.amount.text)
-    infoDict['detailsLink'] = str(soup.homedetails.text)
-    if str(soup.bathrooms) != 'None':
-    	infoDict['bathrooms'] = str(soup.bathrooms.text)
-    if str(soup.bedrooms) != 'None':
-    	infoDict['bedrooms'] = str(soup.bedrooms.text)
-    if str(soup.yearBuilt) != 'None':
-    	infoDict['yearBuilt'] = str(soup.yearBuilt.text)
-    if str(soup.useCode) != 'None':
-    	infoDict['useCode'] = str(soup.useCode.text)
-    if str(soup.finishedSqFt) != 'None':
-    	infoDict['finishedSqFt'] = str(soup.finishedSqFt.text) + " sq feet"
-    return infoDict
+	infoDict = {}
+	address = address.replace(" ", "+")
+	instream = open('../keys.csv','r')
+	content = instream.readlines()
+	instream.close()
+	zKey = content[1].split(",")[1].strip("\n")
+	q = "http://www.zillow.com/webservice/GetDeepSearchResults.htm?"
+	q += "zws-id=" + zKey
+	q += "&address=" + address
+	q += "&citystatezip=" + zipcode
+	u = urllib2.urlopen(q)
+	response = u.read()
+	soup = BeautifulSoup(response, "xml")
+	if str(soup.street) != 'None':
+		infoDict['address'] = str(soup.street.text)
+	infoDict['zipcode'] = str(soup.zipcode.text)
+	infoDict['latitude'] = str(soup.latitude.text)
+	infoDict['longitude'] = str(soup.longitude.text)
+	infoDict['zestimatePrice'] = "$" + str(soup.amount.text)
+	infoDict['detailsLink'] = str(soup.homedetails.text)
+	if str(soup.bathrooms) != 'None':
+		infoDict['bathrooms'] = str(soup.bathrooms.text)
+	if str(soup.bedrooms) != 'None':
+		infoDict['bedrooms'] = str(soup.bedrooms.text)
+	if str(soup.yearBuilt) != 'None':
+		infoDict['yearBuilt'] = str(soup.yearBuilt.text)
+	if str(soup.useCode) != 'None':
+		infoDict['useCode'] = str(soup.useCode.text)
+	if str(soup.finishedSqFt) != 'None':
+		infoDict['finishedSqFt'] = str(soup.finishedSqFt.text) + " sq feet"
+	return infoDict
 
 def genPropertyDictList(matchList):
    	propertyDictList = []
@@ -152,45 +153,51 @@ def main():
 
 
 # functions for site scraping
-'''
-def getDetailLink(zpid):
-    instream = open('../keys.csv','r')
-    content = instream.readlines()
-    instream.close()
-    zKey = content[1].split(",")[1].strip("\n")
-    q = "http://www.zillow.com/webservice/GetZestimate.htm?"
-    q += "zws-id=" + zKey
-    q += "&zpid=" + zpid
-    u = urllib2.urlopen(q)
-    response = u.read()
-    soup = BeautifulSoup(response, "xml")
-    link = str(soup.homedetails.text)
-    latitude = str(soup.latitude.text)
-    longitude = str(soup.longitude.text)
-    retInfo = [link, latitude, longitude]
-    print retInfo
-    return retInfo
-'''
 
-'''
+def getDetailLink(zpid):
+	instream = open('../keys.csv','r')
+	content = instream.readlines()
+	instream.close()
+	#zKey = content[1].split(",")[1].strip("\n")
+	zKey = "X1-ZWz1fmi4reqxaj_10irx"
+	q = "http://www.zillow.com/webservice/GetZestimate.htm?"
+	q += "zws-id=" + zKey + "&zpid=" + str(zpid)
+	u = urllib2.urlopen(q)
+	response = u.read()
+	soup = BeautifulSoup(response, "xml")
+	if str(soup.homedetails) != 'None':
+		link = str(soup.homedetails.text)
+		latitude = str(soup.latitude.text)
+		longitude = str(soup.longitude.text)
+		retInfo = [link, latitude, longitude]
+		print retInfo
+		return retInfo
+	else:
+		return "retInfo = NONE"
+
+
+
+
 # scrape data off of the property's info page and package as dict
 def getPropertyInfo(infoList):
-    link = infoList[0]
-    u = urllib2.urlopen(link)
-    response = u.read()
-    soup = BeautifulSoup(response, "html5lib")
-    infoDict = {}
-    infoDict['address'] = str(soup.title.text).split("|")[0].strip()
-    infoDict['latitude'] = infoList[1]
-    infoDict['longitude'] = infoList[2]
-    #infoDict['image1'] = 'url'
-    print "\n" + str(soup.title.text).split("|")[0].strip() + "\n"
-    print "\n" + str(soup.find_all("meta content")) + "\n\n\n"
-    # for tag in soup.find("meta", name="ROBOTS"):
-    #     print tag["content"]
-    print soup
-    #return infoDict
-'''
+	link = infoList[0]
+	u = urllib2.urlopen(link)
+	response = u.read()
+	soup = BeautifulSoup(response, "html5lib")
+	infoDict = {}
+	infoDict['address'] = str(soup.title.text).split("|")[0].strip()
+	infoDict['latitude'] = infoList[1]
+	infoDict['longitude'] = infoList[2]
+	#infoDict['image1'] = 'url'
+	print "\n" + str(soup.title.text).split("|")[0].strip() + "\n"
+	#print "\n" + str(soup.find_all("meta content")) + "\n\n\n"
+	print soup.find(property="og:description").get("content")
+	l = [x['src'] for x in soup.findAll('img', {'class': 'hip-photo'})]
+	print l
+	# for tag in soup.find("meta", name="ROBOTS"):
+	#     print tag["content"]
+	#soup.prettify()
+	return infoDict
 
 
 
@@ -201,4 +208,6 @@ if __name__ == "__main__":
 	#L = findMatches(4000)
 	#genDictEntry("468 Riverside Dr APT 74", "10027")
 	#print findMatches(1000)
-	print genPropertyDictList(findMatches(1000))
+	zpid=79508100
+	print getPropertyInfo(getDetailLink(zpid))
+	#print genPropertyDictList(findMatches(1000))
