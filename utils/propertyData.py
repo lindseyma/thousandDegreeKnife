@@ -54,11 +54,13 @@ def isProperty(address, zipcode):
     else:
         return "error"
 
+
 # converts a select number of coordinates into addresses and inserts 
 # into a listthe address/zipcode of those that match to a property
 def findMatches(n):
 	allCoords = genCoordinateList()
 	matchList = []
+	matchNum = 0
 	counter = 0
 	instream = open('../keys.csv','r')
 	content = instream.readlines()
@@ -70,21 +72,50 @@ def findMatches(n):
 		q += latlngStr
 		q += "&key=" + googleKey
 		if counter % n == 0:
-			print latlngStr
 			u = urllib2.urlopen(q)
 			response = u.read()
 			d = json.loads(response)
 			formatted_address = d["results"][0]["formatted_address"]
 			address = str(formatted_address.split(", ")[0])
-			print address + "\n"
 			zipcode = str(formatted_address.split(", ")[2][-5:])
-			print zipcode + "\n"
 			if isProperty(address, zipcode) != 'error':
 				matchList.append(isProperty(address, zipcode))
-				#print("\nsuccess!")
+				matchNum += 1
+				# print("success!\n")
+			if matchNum > 60:
+				break
 		counter += 1
 	# print matchList
 	return matchList
+
+def getComparables(zpid):
+    instream = open('../keys.csv','r')
+    content = instream.readlines()
+    instream.close()
+    zKey = content[1].split(",")[1].strip("\n")
+    q = "http://www.zillow.com/webservice/GetComps.htm?"
+    q += "zws-id=" + zKey
+    q += "&zpid=" + zpid
+    q += "&count=" + "3"
+    u = urllib2.urlopen(q)
+    response = u.read()
+    soup = BeautifulSoup(response, "xml")
+    address_box = soup.find_all("street")
+    zip_box = soup.find_all("zipcode")
+    pos = 0
+    address_list = []
+    zip_list = []
+    comp_list = []
+    for address in address_box:
+        address_list += [str(address.text)]
+    del address_list[0]
+    for zipcode in zip_box:
+        zip_list += [str(zipcode.text)]
+    del zip_list[0]
+    while pos < len(address_list):
+        comp_list += [[address_list[pos], zip_list[pos]]]
+        pos += 1
+    return comp_list
 
 # creates a dictionary of property info for a given address/zipcode
 # assumes that given address/zipcode exists in zillow database
@@ -122,9 +153,16 @@ def genDictEntry(address, zipcode):
 
 def genPropertyDictList(matchList):
    	propertyDictList = []
+   	print matchList
 	for match in matchList:
 		infoDict = genDictEntry(match[0], match[1])
 		propertyDictList.append(infoDict)
+		# compList = getComparables(match[2])
+		# for comparable in compList:
+		# 	print("comp address: %s\n")%(comparable[0])
+		# 	print("comp zip: %s\n")%(comparable[1])
+		# 	infoDict = genDictEntry(comparable[0], comparable[1])
+		# 	propertyDictList.append(infoDict)
 	return propertyDictList
 
 def centerCall(listOfCenters):
@@ -145,10 +183,6 @@ def makeMarkers(L1,L2):
 	for key2 in L2:
 		ret.append(key2)
 	return ret
-
-def main():
-	print "["+jsLatLng()+"]"
-	return "["+jsLatLng()+"]"
 
 
 # functions for site scraping
