@@ -193,8 +193,8 @@ def getDetailLink(zpid):
 	instream = open('../keys.csv','r')
 	content = instream.readlines()
 	instream.close()
-	#zKey = content[1].split(",")[1].strip("\n")
-	zKey = "X1-ZWz1fmi4reqxaj_10irx"
+	zKey = content[1].split(",")[1].strip("\n")
+	#zKey = "X1-ZWz1fmi4reqxaj_10irx"
 	q = "http://www.zillow.com/webservice/GetZestimate.htm?"
 	q += "zws-id=" + zKey + "&zpid=" + str(zpid)
 	u = urllib2.urlopen(q)
@@ -239,30 +239,30 @@ def getPropertyInfo(infoList):
 	#print soup.find(property="og:description").get("content")
 	####get image url
 	l=[]
-	#print soup.find_all('ul', class_="photo-wall-content")
 	for x in soup.find_all('img', class_="hip-photo"):
 		try:
 			l.append(fullSize(x['href']))
 		except:
 			continue
 	infoDict['images'] = l
-	# for tag in soup.find("meta", name="ROBOTS"):
-	#     print tag["content"]
-	#soup.prettify()
 	return infoDict
-
-
-
-
 
 if __name__ == "__main__":
 	#print isProperty("545 West 111th Street", "10025")
 	#L = findMatches(4000)
 	#genDictEntry("468 Riverside Dr APT 74", "10027")
 	#print findMatches(1000)
-	zpid=79508100
+	#print listparse.genAddressHits()
 	#f = open('out.html', 'w')
 	#print >> f, 
 	#f.close()
-	print getPropertyInfo(getDetailLink(zpid))
+	#print getPropertyInfo(getDetailLink(zpid))
 	#print genPropertyDictList(findMatches(1000))
+
+
+##### uncomment this to generate property details for all the hosues on the map
+	
+	for hit in findMatches(1000):
+		zpid = hit[2]
+		print getPropertyInfo(getDetailLink(zpid))
+	
