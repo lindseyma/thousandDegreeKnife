@@ -1,6 +1,7 @@
 import urllib2, json, re
 from pprint import pprint
 from bs4 import BeautifulSoup
+import requests
 
 with open('../data/policeprecincts.json') as data_file:    
      data = json.load(data_file)
@@ -208,15 +209,24 @@ def getDetailLink(zpid):
 	else:
 		return "retInfo = NONE"
 
-
-
+#function to make photos full sized
+def fullSize(imgUrl):
+	l = imgUrl.split('/')
+	l[3] = l[3][:-1]
+	l[3] = l[3] + "f"
+	s = ""
+	for x in l:
+		s+=x + "/"
+	return s
 
 # scrape data off of the property's info page and package as dict
 def getPropertyInfo(infoList):
 	link = infoList[0]
-	u = urllib2.urlopen(link)
-	response = u.read()
-	soup = BeautifulSoup(response, "html5lib")
+	#u = urllib2.urlopen(link)
+	#response = u.read()
+	#soup = BeautifulSoup(response, "html5lib")
+	r = requests.get(link)
+	soup = BeautifulSoup(r.text, 'html.parser')
 	infoDict = {}
 	infoDict['address'] = str(soup.title.text).split("|")[0].strip()
 	infoDict['latitude'] = infoList[1]
@@ -230,12 +240,16 @@ def getPropertyInfo(infoList):
 	####get image url
 	l=[]
 	#print soup.find_all('ul', class_="photo-wall-content")
-	#print soup.find_all('img', class_="hip-photo")
+	for x in soup.find_all('img', class_="hip-photo"):
+		try:
+			l.append(fullSize(x['href']))
+		except:
+			continue
+	infoDict['images'] = l
 	# for tag in soup.find("meta", name="ROBOTS"):
 	#     print tag["content"]
 	#soup.prettify()
-	return soup
-	#return infoDict
+	return infoDict
 
 
 
@@ -250,5 +264,5 @@ if __name__ == "__main__":
 	#f = open('out.html', 'w')
 	#print >> f, 
 	#f.close()
-	getPropertyInfo(getDetailLink(zpid))
+	print getPropertyInfo(getDetailLink(zpid))
 	#print genPropertyDictList(findMatches(1000))
