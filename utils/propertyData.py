@@ -173,7 +173,7 @@ def centerCall(listOfCenters):
 		dict['icon'] = 'http://maps.google.com/mapfiles/ms/icons/green-dot.png'
 		dict['lat'] = key[0]
 		dict['lng'] = key[1]
-		dict['infobox'] = "address"
+		dict['infobox'] = '<a href="listing/%s">%s</a>' %(key[2],key[2])
 		ret.append(dict)
 	return ret
 
